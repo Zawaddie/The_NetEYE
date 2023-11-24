@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'images/NETEYE2.PNG' %}" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Network Monitoring Tool</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Add your custom styles */
+        .navbar-nav .nav-link {
+    font-size: 25px;
+    color:black;
+    font-weight: bold;
+}
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden; /* Prevents the blurred image from causing a scrollbar */
+            position: relative; /* Needed for absolute positioning of overlay */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{% static "images/bgPic.jpeg" %}');
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px); /* Adjust the blur amount as needed */
+            z-index: -1; /* Place the overlay behind other content */
+        }
+
+        .centered-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+        }
+
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for better text visibility */
+        }
+
+        .footer {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for better text visibility */
+            color: #000;
+            padding: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Background Overlay -->
+    <div class="overlay"></div>
+
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+            <img src="{% static 'images/FINAL.png' %}" alt="Your Logo" height="100" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item me-4">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-4" href="{% url 'dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-4" href="{% url 'features' %}">Features</a>
+                   </li>
+                     <li class="nav-item me-3">
+                        <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
+                    </li>
+                    <!-- <li class="nav-item me-3">
+                        <a class="nav-link" href="">Settings</a>
+                    </li> -->
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
+                    </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item ms-auto">
+                    <a class="btn btn-success" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item ms-auto">
+                    <a class="btn btn-success" href="{% url 'login' %}">Login</a>
+                </li>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="messages">
+        {% if messages %}
+        <ul class=" messages">
+            {%  for ms in messages %}
+            <li  {% if ms.tag %} class="{{ms.tag}} text text-danger" {% endif %}>{{ms}}</li>
+            {% endfor %}
+        </ul>
+    
+        {% endif %}
+    
+        </div>
+
+        
+
+    <!-- Main Content -->
+    <div class="centered-container">
+    <h1>Welcome to your Robust Network security monitoring tool</h1>
+    <p class="lead"> The intelligent Eye over your network.</p>
+    <a href="{% url 'signup' %}" class="btn btn-success">Get Started</a>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (required for some Bootstrap components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
