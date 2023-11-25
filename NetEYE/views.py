@@ -238,14 +238,11 @@ def dashboard(request):
     user = request.user
     return render(request, 'dashboard.html', {'user': user, 'chart_data': json.dumps(chart_data)})
 
-
-
 def features(request):
     return render(request, 'features.html')
 
 def services(request):
     return render(request, 'services.html')
-
 
 def subscription(request):
     # Add logic for subscription details, if needed
@@ -253,3 +250,4 @@ def subscription(request):
 
 def payment(request):
     return render(request, 'payment.html')
+
