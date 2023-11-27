@@ -1,35 +1,14 @@
+{%load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-    {% load static %}
-    <link rel="shortcut icon" href="{% static 'images/NETEYE2.PNG' %}" type="image/x-icon">
+<head>
+    <link rel="shortcut icon" href="{%static 'images/NETEYE2.PNG' %}" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Network Monitoring Tool - Features</title>
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet"> 
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-3e7kM5FuPnpQ3L6/HRa4lmrZI7LGlWS9eK8tzeY87S0Hil3WQ3P4qO3YDA13dV0Y9SqZiSObVtpxgo4+d8p4oQ==" crossorigin="anonymous" />
-
 
 
     <style>
@@ -38,207 +17,229 @@
     font-size: 25px;
     font-weight: bold;
 }
-/* Example CSS for shadow effect */
-.feature-column {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.feature-column:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust the values as needed */
-}
-
+        <style>
+    .feature-card {
+        transition: transform 0.3s; /* Add a smooth transition effect */
+            transition: box-shadow 0.3s ease-in-out;
+    }t
+    .feature-card:hover {
+        transform: scale(1.05); /* Scale up on hover */
+    }
+</style>
     </style>
 </head>
 <body>
 
-     <!-- Navbar -->
-     <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-            <img src="{% static 'images/FINAL.png' %}" alt="Your Logo" height="100" class="d-inline-block align-text-top">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item me-4">
-                        <a class="nav-link" href="{% url 'index' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-4" href="{% url 'dashboard' %}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-4" href="{% url 'features' %}">Features</a>
-                   </li>
-                     <li class="nav-item me-3">
-                        <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
-                    </li>
-                    <!-- <li class="nav-item me-3">
-                        <a class="nav-link" href="">Settings</a>
-                    </li> -->
-                    <li class="nav-item me-3">
-                        <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
-                    </li>
-                {% if request.user.is_authenticated %}
-                <li class="nav-item ms-auto">
-                    <a class="btn btn-success" href="{% url 'logout' %}">Logout</a>
-                </li>
-                {% else %}
-                <li class="nav-item ms-auto">
-                    <a class="btn btn-success" href="{% url 'login' %}">Login</a>
-                </li>
-                {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
- <!-- Features Start -->
- <div class="container-xxl py-6">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
     <div class="container">
-        <div class="row g-5">
-            <div class="col-lg-5 feature-column mb-4 wow fadeInUp" data-wow-delay="0.1s">
-                <!-- <div class="d-inline-block border rounded-pill text-primary px-4 mb-3">Features</div> -->
-                <h2 class="mb-4">Amazing features of the NetEye </h2>
-                <p>Clita nonumy sanctus nonumy et clita tempor, et sea amet ut et sadipscing rebum amet takimata amet, sed accusam eos eos dolores dolore et. Et ea ea dolor rebum invidunt clita eos. Sea accusam stet stet ipsum, sit ipsum et ipsum kasd</p>
-                <p>Et ea ea dolor rebum invidunt clita eos. Sea accusam stet stet ipsum, sit ipsum et ipsum kasd</p>
-                <a class="btn btn-success rounded-pill py-3 px-5 mt-2" href="">Read More</a>
-            </div>
-            <div class="col-lg-7 feature-column mb-4">
-                <div class="row g-5">
-                    <div class="col-sm-6 feature-column mb-4 wow fadeIn" data-wow-delay="0.1s">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="flex-shrink-0 btn-square bg-success rounded-circle me-3">
-                                <i class="fa fa-cubes text-white"></i>
-                            </div>
-                            <h6 class="mb-0">Real-time Monitoring</h6>
-                        </div>
-                        <span>Continuous network monitoring and real-time insights into the Network traffic from the internet.</span>
-                    </div>
-                    <div class="col-sm-6 feature-column mb-4 wow fadeIn" data-wow-delay="0.2s">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                <i class="fa fa-percent text-white"></i>
-                            </div>
-                            <h6 class="mb-0">AI Packet classification</h6>
-                        </div>
-                        <span>Utilizes advanced ML Classification models to classify each incoming packets as either malicious or benign.</span>
-                    </div>
-                    <div class="col-sm-6 feature-column mb-4 wow fadeIn" data-wow-delay="0.3s">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                <i class="fa fa-award text-white"></i>
-                            </div>
-                            <h6 class="mb-0">Alerts and Notifications</h6>
-                        </div>
-                        <span>Sends instant alerts and notifications about suspicious or malicious network activities.</span>
-                    </div>
-                    <div class="col-sm-6 feature-column mb-4 wow fadeIn" data-wow-delay="0.4s">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                <i class="fa fa-smile-beam text-white"></i>
-                            </div>
-                            <h6 class="mb-0">Egress Deployment</h6>
-                        </div>
-                        <span>Deployed at the egress point of an internal network for comprehensive defense.</span>
-                    </div>
-                    <div class="col-sm-6 feature-column mb-4 wow fadeIn" data-wow-delay="0.5s">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                <i class="fa fa-user-tie text-white"></i>
-                            </div>
-                            <h6 class="mb-0">Swift Threat Detection and Response</h6>
-                        </div>
-                        <span>Detects, responds, and contains threats in real-time to reduce the overall response time</span>
-                    </div>
-                    <div class="col-sm-6 feature-column mb-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                <i class="fa fa-headset text-white"></i>
-                            </div>
-                            <h6 class="mb-0">Community Version and Subscription Management</h6>
-                        </div>
-                        <span>To cater to diverse user needs, NetEYE offers both a free community version and a subscription-based model.</span>
-                    </div>
-                </div>
-            </div>
+        <a class="navbar-brand" href="#">
+        <img src="{% static 'images/FINAL.png' %}" alt="Your Logo" height="100" class="d-inline-block align-text-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item me-4">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link me-4" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link me-4" href="{% url 'features' %}">Features</a>
+               </li>
+                 <li class="nav-item me-3">
+                    <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
+                </li>
+                <!-- <li class="nav-item me-3">
+                    <a class="nav-link" href="">Settings</a>
+                </li> -->
+                <li class="nav-item me-3">
+                    <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
+                </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item ms-auto">
+                <a class="btn btn-success" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item ms-auto">
+                <a class="btn btn-success" href="{% url 'login' %}">Login</a>
+            </li>
+            {% endif %}
+            </ul>
         </div>
     </div>
-</div>
-<!-- Features End -->
+</nav>
+
 
     <!-- Features Section -->
-    <!-- <div class="container mt-4">
-        <h1 class="text-center">Amazing Features of the NetEye</h1> -->
-<!-- 
+    <div class="container mt-4">
+        <h1 class="text-center">Amazing Features of the NetEye</h1>
+
         <div class="row">
 
             <!-- Feature 1 -->
-            <!-- <div class="col-md-6 feature-column mb-4">
-                <div class="feature-icon"> -->
-                    <!-- <i class="fas fa-shield-alt"></i> Replace with the appropriate Font Awesome icon class
+            <div class="col-md-6 mb-4">
+                <div class="card feature-card">
+                    <img src="{% static 'images/cyber-security.png' %}" alt="Feature 1 Image" class="img-fluid mb-3" width="150" height="150">
+                    <h3 class="text-center">Real-time Monitoring</h3>
+                    <p>NetEye excels in providing real-time insights into the Network traffic, offering a comprehensive view of data entering the internal network from the internet</p>
+                    <p>Monitor your network in real-time to detect and analyze incoming and outgoing data packets.</p>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
                 </div>
-                <div class="feature-details">
-                <img src="path/to/feature1-image.jpg" alt="Feature 1 Image" class="img-fluid mb-3">
-                <h3 class="text-center">Real-time Monitoring</h3>
-                <p>NetEye excels in providing real-time insights into the Network traffic, offering a comprehensive view of data entering the internal network from the internet</p>
-                <p>Monitor your network in real-time to detect and analyze incoming and outgoing data packets.</p>
-            </div> -->
+            </div>
 
             <!-- Feature 2 -->
-            <!-- <div class="col-md-6 mb-4">
-                <img src="path/to/feature2-image.jpg" alt="Feature 2 Image" class="img-fluid mb-3">
-                <h3 class="text-center">AI Packet Classification</h3>
-                <p>Leveraging AI, the system utilizes advance AI Classification models to classify each incoming packets as either malicious or benign. This proactive approach significantly reduces detection and response times during cyber threat incidents</p>
-                <p>R.</p>
-            </div> -->
+            <div class="col-md-6 mb-4">
+                <div class="card feature-card">
+                    <img src="{% static 'images/AI2.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="200" height="250">
+                    <h3 class="text-center">AI Packet Classification</h3>
+                    <p>Leveraging AI, the system utilizes advance AI Classification models to classify each incoming packets as either malicious or benign. This proactive approach significantly reduces detection and response times during cyber threat incidents</p>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                </div>
+            </div>
 
             <!-- Feature 3 -->
-            <!-- <div class="col-md-6 mb-4">
-                <img src="path/to/feature2-image.jpg" alt="Feature 2 Image" class="img-fluid mb-3">
-                <h3 class="text-center">Alerts and Notifications</h3>
-                <p>Receive instant alerts and notifications about suspicious or malicious network activities.</p>
-            </div> -->
+            <div class="col-md-6 mb-4">
+                <div class="card feature-card">
+                    <img src="{% static 'images/ALert1.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="150" height="150">
+                    <h3 class="text-center">Alerts and Notifications</h3>
+                    <p>Receive instant alerts and notifications about suspicious or malicious network activities.</p>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                </div>
+            </div>
 
             <!-- Feature 4 -->
-            <!-- <div class="col-md-6 mb-4">
-                <img src="path/to/feature2-image.jpg" alt="Feature 2 Image" class="img-fluid mb-3">
-                <h3 class="text-center">Egress Deployment</h3>
-                <p>Positioned at the egress point of an internal network, the NetEye diligently monitors and classifies every traffic entry from the internet, ensuring a comprehensive defense strategy.</p>
-            </div> -->
+            <div class="col-md-6 mb-4">
+                <div class="card feature-card">
+                    <img src="{% static 'images/local-area.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="100" height="100">
+                    <h3 class="text-center">Egress Deployment</h3>
+                    <p>Positioned at the egress point of an internal network, the NetEye diligently monitors and classifies every traffic entry from the internet, ensuring a comprehensive defense strategy.</p>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                </div>
+            </div>
 
             <!-- Feature 5 -->
-            <!-- <div class="col-md-6 mb-4">
-                <img src="path/to/feature2-image.jpg" alt="Feature 2 Image" class="img-fluid mb-3">
-                <h3 class="text-center">Swift Threat Detection and Response</h3>
-                <p>The primary objective is to detect, respond, and contain threats in real-time.
+            <div class="col-md-6 mb-4">
+                <div class="card feature-card">
+                    <img src="{% static 'images/detective.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="150" height="150">
+                    <h3 class="text-center">Swift Threat Detection and Response</h3>
+                    <p>The primary objective is to detect, respond, and contain threats in real-time.
                     This approach drastically reduces the overall response time during cyber threat incidents, enhancing the system's efficacy..</p>
-            </div> -->
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                </div>
+            </div>
 
             <!-- Feature 6 -->
-            <!-- <div class="col-md-6 mb-4">
-                <img src="path/to/feature2-image.jpg" alt="Feature 2 Image" class="img-fluid mb-3">
-                <h3 class="text-center">Community Version and Subscription Management:</h3>
-                <p>To cater to diverse user needs, the system offers both a free community version and a subscription-based model.
+            <div class="col-md-6 mb-4">
+                <div class="card feature-card">
+                    <img src="{% static 'images/subscribe.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="150" height="150>
+                    <h3 class="text-center>Community/premium versions</h3>
+                    <p>To cater to diverse user needs, the system offers both a free community version and a subscription-based model.
                     To facilitate seamless subscription payments, the tool incorporates an MPESA API, enabling secure and convenient transactions.</p>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                </div>
             </div>
 
         </div>
-    </div> --> 
+    </div>
 
     <!-- Footer -->
-   <footer class="footer mt-5">
-        <div class="container text-center">
-        <p>&copy; 2023 ENGraced Tech Solutions. All rights reserved.</p>
-       </div>
-   </footer>
+<!--    <footer class="footer bg-dark text-white">-->
+<!--        <div class="container text-center">-->
+<!--            <p>&copy; 2023 ENGraced Tech Solutions. All rights reserved.</p>-->
+<!--        </div>-->
+<!--    </footer>-->
+     <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 6rem;">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="text-white mb-4">Get In Touch</h5>
+                        <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                        <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                        <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                        <div class="d-flex pt-2">
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="text-white mb-4">Quick Link</h5>
+                        <a class="btn btn-link" href="">About Us</a>
+                        <a class="btn btn-link" href="">Contact Us</a>
+                        <a class="btn btn-link" href="">Privacy Policy</a>
+                        <a class="btn btn-link" href="">Terms & Condition</a>
+                        <a class="btn btn-link" href="">Career</a>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="text-white mb-4">Popular Link</h5>
+                        <a class="btn btn-link" href="">About Us</a>
+                        <a class="btn btn-link" href="">Contact Us</a>
+                        <a class="btn btn-link" href="">Privacy Policy</a>
+                        <a class="btn btn-link" href="">Terms & Condition</a>
+                        <a class="btn btn-link" href="">Career</a>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h5 class="text-white mb-4">Newsletter</h5>
+                        <p>Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulpu</p>
+                        <div class="position-relative w-100 mt-3">
+                            <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="Your Email" style="height: 48px;">
+                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; 2023 <a class="border-bottom" href="#">ENGraced Solutions Ltd</a>, All Right Reserved.
 
-<!-- Template Javascript -->
-<script src="js/main.js"></script>
+							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+<!--							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>-->
+<!--                            <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>-->
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="">Home</a>
+                                <a href="">Cookies</a>
+                                <a href="">Help</a>
+                                <a href="">FQAs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
 
 
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Bootstrap JS and Popper.js (required for some Bootstrap components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome JS (required for icons) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
 </body>
 </html>
