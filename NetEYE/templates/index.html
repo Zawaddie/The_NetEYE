@@ -75,26 +75,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item me-4">
-                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    <li class="nav-item me-3">
+                        <a class="nav-link fs-5" href="{% url 'index' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-4" href="{% url 'dashboard' %}">Dashboard</a>
+                        <a class="nav-link fs-5" href="{% url 'dashboard' %}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-4" href="{% url 'features' %}">Features</a>
+                        <a class="nav-link fs-5" href="{% url 'features' %}">Features</a>
                    </li>
                      <li class="nav-item me-3">
-                        <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
+                        <a class="nav-link fs-5" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
                     </li>
                     <!-- <li class="nav-item me-3">
                         <a class="nav-link" href="">Settings</a>
                     </li> -->
-                    <li class="nav-item me-3">
-                        <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
+                    <li class="nav-item me-3" >
+                        <a class="nav-link fs-5" href="{% url 'subscription' %}">Premium</a>
                     </li>
                 {% if request.user.is_authenticated %}
-                <li class="nav-item ms-auto">
+                <li class="nav-item ms-auto ml-5">
                     <a class="btn btn-success" href="{% url 'logout' %}">Logout</a>
                 </li>
                 {% else %}

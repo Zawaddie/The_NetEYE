@@ -66,23 +66,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item me-4">
-                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    <li class="nav-item me-3">
+                        <a class="nav-link fs-5" href="{% url 'index' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-4" href="{% url 'dashboard' %}">Dashboard</a>
+                        <a class="nav-link me-3 fs-5" href="{% url 'dashboard' %}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-4" href="{% url 'features' %}">Features</a>
+                        <a class="nav-link me-4 fs-5" href="{% url 'features' %}">Features</a>
                    </li>
                      <li class="nav-item me-3">
-                        <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
+                        <a class="nav-link fs-5" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
                     </li>
                     <!-- <li class="nav-item me-3">
                         <a class="nav-link" href="">Settings</a>
                     </li> -->
-                    <li class="nav-item me-3">
-                        <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
+                    <li class="nav-item me-3 ">
+                        <a class="nav-link fs-5" href="{% url 'subscription' %}">Premium</a>
                     </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item ms-auto">
@@ -105,15 +105,13 @@
         <li  {% if ms.tag %} class="{{ms.tag}} text text-danger alert" {% endif %}>{{ms}}</li>
         {% endfor %}
     </ul>
-
     {% endif %}
-
     </div>
 
     <!-- Content -->
     <div class="row">
         <!-- File Upload Button and Start Packet Capture Button -->
-        <div class="col-md-6 feature-column p-5">
+        <div class="col-md-3 bg-light feature-column p-5">
             <form action="" class="myform" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 <button type="button" class="btn btn-danger mb-3">Start Live Packet Capture</button>
@@ -121,22 +119,30 @@
                     <label for="fileInput" class="form-label"> You can also Upload your saved PCAP File:</label>
                     <input type="file" class="form-control" id="fileInput" name="packets">
                 </div>
-
                 <button type="submit" class="btn btn-success btn-block">Upload</button>
         </form>
 
         </div>
 
         <!-- Chart -->
-        <div class="col-md-6 feature-column  p-5">
-            <h2>Attack Chart</h2>
-            <canvas id="attackChart"></canvas>
-        </div>
-    </div>
+        <div class="col-md-7 feature-column  p-5">
+            <div class="messages">
+            <p>This Section visualizes a history of detections over time </p>
 
-    <!-- Live Data Table -->
+                {% if messages %}
+                <ul class=" messages">
+                    {%  for ms in messages %}
+                    <li  {% if ms.tag %} class="{{ms.tag}} text text-danger alert" {% endif %}>{{ms}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                </div>
+            <h2>Detection History</h2>
+            <canvas id="attackChart"></canvas>
+            <p>Visualizes each received packet details as updated periodically</p>
+               <!-- Live Data Table -->
 <div class="live-data-table feature-column">
-    <h2>Live Data</h2>
+    <h2>Live Data Classification per Packet</h2>
     {% if table %}
     {{ table|safe  }}
     {% else %}
@@ -172,7 +178,50 @@
         </tbody>
         <!-- Table rows will be dynamically added with JavaScript -->
     </table>
-</div>
+
+        </div>
+        
+    </div>
+
+    <!-- Live Data Table -->
+<!-- <div class="live-data-table feature-column">
+    <h2>Live Data Classification per Packet</h2>
+    {% if table %}
+    {{ table|safe  }}
+    {% else %}
+    No Table
+    {% endif %}
+    <table class="table table-bordered feature-column ">
+        <thead>
+            <tr>
+                <th>Packet Ref. No.</th>
+                <th>Src IP</th>
+                <th>Dest IP</th>
+                <th>Timestamp</th>
+                <th>Classification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Example rows, replace with actual data from your application  -->
+            <!-- <tr>
+                <td>001</td>
+                <td>192.168.1.1</td>
+                <td>10.0.0.1</td>
+                <td>2023-11-15 12:30:45</td>
+                <td>Benign</td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>192.168.1.2</td>
+                <td>10.0.0.2</td>
+                <td>2023-11-15 12:31:15</td>
+                <td>Malicious</td>
+            </tr>
+            <! Add more rows as needed -->
+        <!-- </tbody> -->
+        <!-- Table rows will be dynamically added with JavaScript -->
+    <!-- </table> -->
+<!-- </div>  -->
 
     <!-- Footer -->
     <footer>
@@ -221,10 +270,10 @@
             cell2.innerHTML = classification;
         }
 
-        // Sample usage of the addRowToTable function
-        addRowToTable('Packet 1 details', 'Benign');
-        addRowToTable('Packet 2 details', 'Malicious');
-        // Add more rows as needed...
+           //Sample usage of the addRowToTable function
+          //addRowToTable('Packet 1 details', 'Benign');
+         //addRowToTable('Packet 2 details', 'Malicious');
+        //Add more rows as needed...
     </script>
 
     <!-- Bootstrap JS and Popper.js (required for some Bootstrap components) -->

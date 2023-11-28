@@ -19,6 +19,16 @@
     font-size: 25px;
     font-weight: bold;
 }
+.myForm{
+            margin: 0 auto;
+            width: 50%;
+            margin-top: 0%;
+            box-shadow: -1px -3px 2px 4px rgba(21,224,21,0.33);
+            -webkit-box-shadow: -1px -3px 2px 4px rgba(21,224,21,0.33);
+            -moz-box-shadow: -1px -3px 2px 4px rgba(21,224,21,0.33);
+            font-weight: bolder;
+            height: 370px;
+}
     </style>
 </head>
 <body>
@@ -35,30 +45,27 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item me-4">
-                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    <a class="nav-link fs-5" href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link me-4" href="{% url 'dashboard' %}">Dashboard</a>
+                    <a class="nav-link me-4 fs-5" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link me-4" href="{% url 'features' %}">Features</a>
+                    <a class="nav-link me-4 fs-5" href="{% url 'features' %}">Features</a>
                </li>
                  <li class="nav-item me-3">
-                    <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
+                    <a class="nav-link fs-5" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
                 </li>
-                <!-- <li class="nav-item me-3">
-                    <a class="nav-link" href="">Settings</a>
-                </li> -->
                 <li class="nav-item me-3">
-                    <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
+                    <a class="nav-link fs-5" href="{% url 'subscription' %}">Premium</a>
                 </li>
             {% if request.user.is_authenticated %}
             <li class="nav-item ms-auto">
-                <a class="btn btn-outline-primary" href="{% url 'logout' %}">Logout</a>
+                <a class="btn btn-success me-auto" href="{% url 'logout' %}">Logout</a>
             </li>
             {% else %}
             <li class="nav-item ms-auto">
-                <a class="btn btn-outline-primary" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-success me-auto" href="{% url 'login' %}">Login</a>
             </li>
             {% endif %}
             </ul>
@@ -79,8 +86,10 @@
         </div>
 
         
-    <!-- Login Form -->
+    <!-- Signup Form -->
     <div class="container mt-5">
+        <div class="myForm px-5"> 
+
         <form action="{% url 'signup' %}" method="post">
             {% csrf_token %}
             <h2 class="mb-4">Signup</h2>
@@ -92,27 +101,18 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password">
             </div>
-            <!-- <div class="mb-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">
-                        Remember me
-                    </label>
-                </div>
-            </div> -->
-            <button type="submit" class="btn btn-primary">Signup</button>
+    
+            <button type="submit" class="btn btn-success">Signup</button>
         </form>
 
-        <!-- Additional Options -->
         <div class="mt-3">
             <p>Already have an account? <a href="{% url 'login' %}" >Signin</a>.</p>
-            <!-- <p><a href="#">Forgot password?</a></p> -->
-            <!-- <p><a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Reset password</a></p> -->
+            
+        </div>
         </div>
     </div>
 
 
-    <!-- Your content goes here -->
  <!-- Footer Start -->
         <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 6rem;">
