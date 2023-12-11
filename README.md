@@ -75,7 +75,7 @@ Contributions are welcome! Please follow the contributing guidelines.
 This project is licensed under the MIT License.
 
 ## Acknowledgments
-Special thanks to...
+Special thanks to my project partners
 
 ## Contact
-For any inquiries, please contact [engraced.tech.solutions@gmai.com].
+For any inquiries, please contact [engraced.tech.solutions@gmail.com].
