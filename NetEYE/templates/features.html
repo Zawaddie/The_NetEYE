@@ -14,16 +14,22 @@
     <style>
         /* Add your custom styles here */
         .navbar-nav .nav-link {
-    font-size: 25px;
+    font-size: 15px;
     font-weight: bold;
 }
-    .feature-card {
+    .feature-column {
         transition: transform 0.3s; /* Add a smooth transition effect */
             transition: box-shadow 0.9s ease-in-out;
     }t
-    .feature-card:hover {
+    .feature-column:hover {
         transform: scale(1.05); /* Scale up on hover */
     }
+    .myCard{
+            box-shadow: -1px -3px 2px 4px rgba(21,224,21,0.33);
+            -webkit-box-shadow: -1px -3px 2px 4px rgba(21,224,21,0.33);
+            -moz-box-shadow: -1px -3px 2px 4px rgba(21,224,21,0.33);
+            
+}
 </style>
     </style>
 </head>
@@ -39,24 +45,25 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto"  style="margin-left: 30%;">
                 <li class="nav-item me-4">
-                    <a class="nav-link fs-5" href="{% url 'index' %}">Home</a>
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link me-4 fs-5" href="{% url 'dashboard' %}">Dashboard</a>
+                    <a class="nav-link me-4" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link me-4 fs-5" href="{% url 'features' %}">Features</a>
+                    <a class="nav-link me-4" href="{% url 'features' %}">Features</a>
                </li>
                  <li class="nav-item me-3">
-                    <a class="nav-link fs-5" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
+                    <!-- <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=]">How to Use</a> -->
+                    <a href="{% url 'payment' %}" class="nav-link" data-bs-toggle="modal" data-bs-target="#howTouseModel">How to use</a>
                 </li>
                 <!-- <li class="nav-item me-3">
                     <a class="nav-link" href="">Settings</a>
                 </li> -->
                 <li class="nav-item me-3">
-                    <a class="nav-link fs-5" href="{% url 'subscription' %}">Premium</a>
+                    <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
                 </li>
             {% if request.user.is_authenticated %}
             <li class="nav-item ms-auto">
@@ -73,84 +80,104 @@
 </nav>
 
 
+    <!-- Modal for youtube Plan 1 -->
+    <div class="modal fade" id="howTouseModel" tabindex="-1" aria-labelledby="howtouseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg custom-modal p-5">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="settingsModalLabel1">How to use Page</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="" >
+                        <iframe width="650" height="315"
+                        src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+       
     <!-- Features Section -->
     <div class="container mt-4">
-        <h1 class="text-center">Amazing Features of the NetEye</h1>
+        <!-- Header -->
+        <header class="w3-container w3-center w3-padding-32">
+            <h1 class="text-center">Amazing Features of the NetEye</h1>
+            <h1><b>About Us</b></h1>
+            <p>You can visit our <a href="https://zawaddie.github.io/MySite" target="_blank">Website</a> for more curated solutions</p>
+          </header>
 
         <div class="row">
 
             <!-- Feature 1 -->
-            <div class="col-md-6 mb-4">
-                <div class="card feature-card p-5">
-                    <img src="{% static 'images/cyber-security.png' %}" alt="Feature 1 Image" class="img-fluid mb-3" width="100" height="100">
+            <div class="col-md-6 mb-4 ">
+                <div class="card feature-column p-5 myCard">
+                    <img src="{% static 'images/cyber-security.png' %}" alt="Feature 1 Image" class="img-fluid mb-3" width="100" height="9S0">
                     <h3 class="text-center">Real-time Monitoring</h3>                                                                                             
                     <p>NetEye excels in providing real-time insights into the Network traffic, offering a comprehensive view of data entering the internal network from the internet</p>
                     <p>Monitor your network in real-time to detect and analyze incoming and outgoing data packets.</p>
-                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" target="_blank" href="https://github.com/Zawaddie/The_NetEYE/tree/main">Read More</a>
                 </div>
             </div>
 
             <!-- Feature 2 -->
             <div class="col-md-6 mb-4">
-                <div class="card feature-card p-5">
+                <div class="card feature-column p-5 myCard">
                     <img src="{% static 'images/AI2.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="150" height="150">
                     <h3 class="text-center">AI Packet Classification</h3>
                     <p>Leveraging AI, the system utilizes advance AI Classification models to classify each incoming packets as either malicious or benign. This proactive approach significantly reduces detection and response times during cyber threat incidents</p>
-                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" target="_blank" href="https://github.com/Zawaddie/The_NetEYE/tree/main">Read More</a>
                 </div>
             </div>
 
             <!-- Feature 3 -->
             <div class="col-md-6 mb-4">
-                <div class="card feature-card p-5">
+                <div class=" card feature-column p-5 myCard">
                     <img src="{% static 'images/ALert1.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="100" height="100">
                     <h3 class="text-center">Alerts and Notifications</h3>
                     <p>Receive instant alerts and notifications about suspicious or malicious network activities.</p>
-                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" target="_blank" href="https://github.com/Zawaddie/The_NetEYE/tree/main">Read More</a>
                 </div>
             </div>
 
             <!-- Feature 4 -->
             <div class="col-md-6 mb-4">
-                <div class="card feature-card p-5">
+                <div class="card feature-column p-5 myCard">
                     <img src="{% static 'images/local-area.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="100" height="100">
                     <h3 class="text-center">Egress Deployment</h3>
                     <p>Positioned at the egress point of an internal network, the NetEye diligently monitors and classifies every traffic entry from the internet, ensuring a comprehensive defense strategy.</p>
-                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" target="_blank" href="https://github.com/Zawaddie/The_NetEYE/tree/main">Read More</a>
                 </div>
             </div>
 
             <!-- Feature 5 -->
             <div class="col-md-6 mb-4">
-                <div class="card feature-card p-5">
+                <div class="card feature-column p-5 myCard">
                     <img src="{% static 'images/detective.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="100" height="100">
                     <h3 class="text-center">Swift Threat Detection and Response</h3>
                     <p>The primary objective is to detect, respond, and contain threats in real-time.
                     This approach drastically reduces the overall response time during cyber threat incidents, enhancing the system's efficacy.</p>
-                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" target="_blank" href="https://github.com/Zawaddie/The_NetEYE/tree/main">Read More</a>
                 </div>
             </div>
 
             <!-- Feature 6 -->
             <div class="col-md-6 mb-4">
-                <div class="card feature-card p-5">
-                    <img src="{% static 'images/subscribe.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="100" height="100>
+                <div class="card feature-column p-5 myCard">
+                    <img src="{% static 'images/subscribe.png' %}" alt="Feature 2 Image" class="img-fluid mb-3" width="100" height="100">
                     <h3 class="text-center"> Community/Premium versions</h3>
                     <p>To cater to diverse user needs, the system offers both a free community version and a subscription-based model.
                     To facilitate seamless subscription payments, the tool incorporates an MPESA API, enabling secure and convenient transactions.</p>
-                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" href="">Read More</a>
+                    <a class="btn btn-success rounded-pill py-1 px-3 mt-2" target="_blank" href="https://github.com/Zawaddie/The_NetEYE/tree/main">Read More</a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- Footer -->
-<!--    <footer class="footer bg-dark text-white">-->
-<!--        <div class="container text-center">-->
-<!--            <p>&copy; 2023 ENGraced Tech Solutions. All rights reserved.</p>-->
-<!--        </div>-->
-<!--    </footer>-->
+    
      <!-- Footer Start -->
         <div class="container-fluid bg-dark text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 6rem;">
             <div class="container py-5">
@@ -170,11 +197,11 @@
                     </div>
                     <div class="col-md-6 col-lg-3 me-4">
                         <h5 class="text-white mb-4">Quick Links</h5>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                        <a class="btn btn-link" href="">Career</a>
+                        <a class="btn btn-link" target="_blank" href="https://zawaddie.github.io/MySite">About Us</a>
+                        <a class="btn btn-link" target="_blank" href="https://zawaddie.github.io/MySite">Contact Us</a>
+                        <a class="btn btn-link" target="_blank" href="https://zawaddie.github.io/MySite">Privacy Policy</a>
+                        <a class="btn btn-link" target="_blank" href="https://zawaddie.github.io/MySite">Terms & Condition</a>
+                        <a class="btn btn-link" target="_blank" href="https://zawaddie.github.io/MySite">Careers</a>
                     </div>
                     <!-- <div class="col-md-6 col-lg-3">
                         <h5 class="text-white mb-4">Popular Link</h5>
@@ -197,8 +224,8 @@
             <div class="container">
                 <div class="copyright">
                     <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; 2023 <a class="border-bottom" href="#">ENGraced Tech Solutions Ltd</a>,  All Right Reserved.
+                        <div class="col-md-6 text-center  mb-3 mb-md-0"  style="margin-left: 20%;">
+                            &copy; 2023 <a class="border-bottom" target="_blank" href="https://zawaddie.github.io/MySite">ENGraced Tech Solutions Ltd</a>,  All Right Reserved.
                         </div>
                         <div class="col-md-6 text-center text-md-end">
 

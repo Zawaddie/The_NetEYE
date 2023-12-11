@@ -16,7 +16,7 @@
      <style>
         /* Add your custom styles here */
         .navbar-nav .nav-link {
-    font-size: 25px;
+    font-size: 15px;
     font-weight: bold;
 }
 .myForm{
@@ -43,21 +43,25 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto" style="margin-left: 30%;">
                 <li class="nav-item me-4">
-                    <a class="nav-link fs-5" href="{% url 'index' %}">Home</a>
+                    <a class="nav-link " href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link me-4 fs-5" href="{% url 'dashboard' %}">Dashboard</a>
+                    <a class="nav-link me-4 " href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link me-4 fs-5" href="{% url 'features' %}">Features</a>
+                    <a class="nav-link me-4" href="{% url 'features' %}">Features</a>
                </li>
-                 <li class="nav-item me-3">
-                    <a class="nav-link fs-5" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
-                </li>
+               <li class="nav-item me-3">
+                <!-- <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=]">How to Use</a> -->
+                <a href="{% url 'payment' %}" class="nav-link" data-bs-toggle="modal" data-bs-target="#howTouseModel">How to use</a>
+            </li>
+                 <!-- <li class="nav-item me-3">
+                    <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
+                </li> -->
                 <li class="nav-item me-3">
-                    <a class="nav-link fs-5" href="{% url 'subscription' %}">Premium</a>
+                    <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
                 </li>
             {% if request.user.is_authenticated %}
             <li class="nav-item ms-auto">
@@ -73,17 +77,34 @@
     </div>
 </nav>
 
-    <div class="messages">
-        {% if messages %}
-        <ul class=" messages">
-            {%  for ms in messages %}
-            <li  {% if ms.tag %} class="{{ms.tag}} text text-danger" {% endif %}>{{ms}}</li>
-            {% endfor %}
-        </ul>
-    
-        {% endif %}
-    
+{% for message in messages %}
+
+<div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>{{message}}!</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+{% endfor %}
+
+<!-- Modal for youtube Plan 1 -->
+<div class="modal fade" id="howTouseModel" tabindex="-1" aria-labelledby="howtouseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg custom-modal p-5">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="settingsModalLabel1">How to use Page</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="" >
+                    <iframe width="650" height="315"
+                    src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                    </iframe>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
+
 
         
     <!-- Signup Form -->
@@ -92,10 +113,14 @@
 
         <form action="{% url 'signup' %}" method="post">
             {% csrf_token %}
-            <h2 class="mb-4">Signup</h2>
+            <h3 class="mb-4">Signup</h3>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" name="username" class="form-control" id="username" placeholder="Enter your username">
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="text-md-start" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="Email"  name="email" placeholder="Enter your email">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>

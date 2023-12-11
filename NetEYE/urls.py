@@ -11,5 +11,8 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('subscription/', views.subscription, name='subscription'),
     path('payment/', views.payment, name='payment'),
+     path('settings/', views.settings, name='settings'),
+    path('update_chart_data/', views.update_chart_data, name='update_chart_data'),
+    path('mpesa-callback/', views.stk_callback, name='update_chart_data'),
 ]
 

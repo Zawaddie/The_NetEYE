@@ -13,7 +13,7 @@
     <style>
         /* Add your custom styles */
         .navbar-nav .nav-link {
-    font-size: 25px;
+    font-size: 15px;
     color:black;
     font-weight: bold;
 }
@@ -34,7 +34,7 @@
             background-image: url('{% static "images/bgPic.jpeg" %}');
             background-size: cover;
             background-position: center;
-            filter: blur(px); /* Adjust the blur amount as needed */
+            /* filter: blur(px); Adjust the blur amount as needed */
             z-index: -1; /* Place the overlay behind other content */
         }
 
@@ -49,6 +49,7 @@
 
         .navbar {
             background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for better text visibility */
+            min-height: 40px;
         }
 
         .footer {
@@ -65,41 +66,48 @@
     <div class="overlay"></div>
 
      <!-- Navbar -->
-     <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
+     <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar" >
         <div class="container">
             <a class="navbar-brand" href="#">
-            <img src="{% static 'images/FINAL.png' %}" alt="Your Logo" height="100" class="d-inline-block align-text-top">
+            <img src="{% static 'images/FINAL.png' %}" alt="THE NET EYE" height="100" class="d-inline-block align-text-top">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item me-3">
-                        <a class="nav-link fs-5" href="{% url 'index' %}">Home</a>
+                <ul class="navbar-nav ml-auto float-right float-end" style="margin-left: 30%;">
+                    <li></li>
+                    <li></li>
+                    <li class="nav-item me-3 ml-5">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fs-5" href="{% url 'dashboard' %}">Dashboard</a>
+                        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fs-5" href="{% url 'features' %}">Features</a>
+                        <a class="nav-link" href="{% url 'features' %}">Features</a>
                    </li>
-                     <li class="nav-item me-3">
-                        <a class="nav-link fs-5" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
-                    </li>
+
+                   <li class="nav-item me-3">
+                    <!-- <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=]">How to Use</a> -->
+                    <a href="{% url 'payment' %}" class="nav-link" data-bs-toggle="modal" data-bs-target="#howTouseModel">How to use</a>
+                </li>
+                     <!-- <li class="nav-item me-3">
+                        <a class="nav-link" target="_blank"  href="https://youtu.be/cze94MRjrrE?si=mCJUF1NBC4JWAuv2">How to Use</a>
+                    </li> -->
                     <!-- <li class="nav-item me-3">
                         <a class="nav-link" href="">Settings</a>
                     </li> -->
                     <li class="nav-item me-3" >
-                        <a class="nav-link fs-5" href="{% url 'subscription' %}">Premium</a>
+                        <a class="nav-link" href="{% url 'subscription' %}">Premium</a>
                     </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item ms-auto ml-5">
-                    <a class="btn btn-success" href="{% url 'logout' %}">Logout</a>
+                    <a class="btn btn-success ml-auto" href="{% url 'logout' %}">Logout</a>
                 </li>
                 {% else %}
                 <li class="nav-item ms-auto">
-                    <a class="btn btn-success" href="{% url 'login' %}">Login</a>
+                    <a class="btn btn-success ml-auto me-6" href="{% url 'login' %}">Login</a>
                 </li>
                 {% endif %}
                 </ul>
@@ -107,23 +115,39 @@
         </div>
     </nav>
 
-    <div class="messages">
-        {% if messages %}
-        <ul class=" messages">
-            {%  for ms in messages %}
-            <li  {% if ms.tag %} class="{{ms.tag}} text text-danger" {% endif %}>{{ms}}</li>
-            {% endfor %}
-        </ul>
-    
-        {% endif %}
-    
+    {% for message in messages %}
+
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{message}}!</strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+    {% endfor %}    
+
+    <!-- Modal for youtube Plan 1 -->
+    <div class="modal fade" id="howTouseModel" tabindex="-1" aria-labelledby="howtouseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg custom-modal p-5">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="settingsModalLabel1">How to use Page</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="" >
+                        <iframe width="650" height="315"
+                        src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
         
 
     <!-- Main Content -->
-    <div class="centered-container">
-    <h1>Welcome to your Robust Network security monitoring tool</h1>
+    <div class="centered-container p-5">
+    <h2>Welcome to your Robust Network security monitoring tool</h2>
     <p class="lead"> The intelligent Eye over your network.</p>
     <a href="{% url 'signup' %}" class="btn btn-success">Get Started</a>
     </div>

@@ -1,16 +1,21 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout 
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib import messages
 
 from django.contrib.auth.models import User
 
+from NetEYE.mpesa import request_stk_push, getTime
+from NetEYE.models import mpesaRequest, MpesaPayments
+from datetime import datetime
+from django.http import Http404, HttpResponse
+from django.views.decorators.http import require_POST
 import json
+
 import time
 import pandas as pd
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import os
 # Create your views here.
 # Home page
@@ -50,7 +55,6 @@ TRAIN_COLS  =['Destination Port', 'Flow Duration', 'Total Fwd Packets',
        'Init_Win_bytes_forward', 'Init_Win_bytes_backward', 'act_data_pkt_fwd',
        'min_seg_size_forward', 'Active Mean', 'Active Std', 'Active Max',
        'Active Min', 'Idle Mean', 'Idle Std', 'Idle Max', 'Idle Min']
-
 
 rename_cols = {'flow_duration': 'Flow Duration',
  'flow_iat_mean': 'Flow IAT Mean',
@@ -147,30 +151,33 @@ def index(request):
     return render(request, 'index.html')
 
 # signup page
+@csrf_exempt
 def signup(request):
     if request.user.is_authenticated:
         return redirect("index")
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        email = request.POST['email']
 
         user_obj = User.objects.filter(username=username)
         if user_obj.exists():
             msg = "User already exists"
-            messages.success(request, 'Account Exits!') 
+            messages.warning(request, f"Hi {username}, details used already exists")
             return render(request, 'login.html', {"msg":msg})
-        
+
         else:
             user_new = User(
-                username=username
+                username=username, email=email
             )
             user_new.set_password(password)
-            user_new.save() 
-            messages.success(request, 'Account created successfully!')      
+            user_new.save()
+            messages.success(request, f"Hi {username}, Account created well")
             return redirect('login')
     return render(request, 'signup.html')
 
 # login page
+@csrf_exempt
 def login_user(request):
     if request.user.is_authenticated:
         return redirect("index")
@@ -179,12 +186,12 @@ def login_user(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user:
-            login(request, user)    
-            messages.success(request, 'Account login successfully!') 
+            login(request, user)
+            messages.success(request, f"Hi {username}, Welcome back")
             return redirect('dashboard')
         else:
             msg = "Incorrect credentials"
-            messages.success(request, 'Account Incorrect credentials!') 
+            messages.error(request, f"Hi {username}, You have provided invalid logic credentials")
             return render(request, 'login.html', {'msg': msg})
     return render(request, 'login.html')
 
@@ -203,6 +210,33 @@ def dashboard(request):
         'names': label_names,
         'data': preds,
     }
+    selector_ = request.POST.get("optionSelector") 
+
+    if request.method == "POST" and request.POST.get("optionSelector") == "1":
+        #process the data for live data
+        LIVE_DATA_PATH = "./final/DATA.csv"
+        data = pd.read_csv(f"{LIVE_DATA_PATH}")
+        processed_data, df = process_data(data)
+        # Run the model on the processed data
+        results = model.predict(processed_data)
+        # Get the count of benign and malicious detections
+        count = pd.Series(results).value_counts()
+
+        label_names = label_encoder.inverse_transform(count.index)
+        chart_data = {
+                'names': list(label_names),
+                'data': [str(x) for x in count.values],
+
+            }
+
+        #get some latest top 5
+        latest_data = data.sample(5).reset_index(drop=True)[TRAIN_COLS_OUT]
+        # print(latest_data)
+
+        chart_data['table'] = latest_data.to_html(classes='table table-bordered table-striped')
+        return render(request, 'dashboard.html', {'user': request.user, "selected": selector_, 'chart_data': json.dumps(chart_data), "table":chart_data['table']})
+
+
     if request.method == 'POST' and request.FILES.get('packets'):
         data_path = request.FILES.get('packets')
 
@@ -219,24 +253,72 @@ def dashboard(request):
                 chart_data = {
                         'names': list(label_names),
                         'data': [str(x) for x in count.values],
-                        
+
                     }
-                
+
                 #get some latest top 5
-                latest_data = df.sample(5).reset_index(drop=True)#[TRAIN_COLS_OUT]
-                print(latest_data)
+                try:
+                    latest_data = data.sample(5).reset_index(drop=True)[TRAIN_COLS_OUT]
+                except:
+                    latest_data = data.sample(5)[['Destination Port',"Label"]].reset_index(drop=True)
+                # print(latest_data)
 
                 chart_data['table'] = latest_data.to_html(classes='table table-bordered table-striped')
-                return render(request, 'dashboard.html', {'user': request.user, 'chart_data': json.dumps(chart_data)})
-                
+                return render(request, 'dashboard.html', {'user': request.user, "selected": selector_, 'chart_data': json.dumps(chart_data), "table":chart_data['table']})
+
             else:
                 messages.warning(request, "Hey please upload a csv file")
+
         except Exception as e:
             messages.warning(request, f"File uploaded is not working  {e}")
-  
+
     # You can access the logged-in user using request.user
     user = request.user
-    return render(request, 'dashboard.html', {'user': user, 'chart_data': json.dumps(chart_data)})
+    return render(request, 'dashboard.html', {'user': user, 'chart_data': json.dumps(chart_data) })
+
+
+
+
+@login_required(login_url="/login")
+def update_chart_data(request):
+    preds, label_names = [], []
+    #process the data for live data
+    LIVE_DATA_PATH = "./final/DATA.csv"
+    data = pd.read_csv(f"{LIVE_DATA_PATH}")
+    processed_data, df = process_data(data)
+    # Run the model on the processed data
+    results = model.predict(processed_data)
+    # Get the count of benign and malicious detections
+    count = pd.Series(results).value_counts()
+
+    label_names = label_encoder.inverse_transform(count.index)
+
+    TRAIN_COLS_OUT = ['src_ip', 'dst_ip', 'src_port', 'src_mac', 'dst_mac', 'timestamp', 'predicted_label', 'predicted_score']
+
+    latest_data = data.tail(5).reset_index(drop=True)
+
+    table_data = []
+    for index, row in latest_data.iterrows():
+        table_row = {
+            'src_ip': row['src_ip'],
+            'dst_ip': row['dst_ip'],
+            'src_port': row['src_port'],
+            'src_mac': row['src_mac'],
+            'dst_mac': row['dst_mac'],
+            'timestamp': row['timestamp'],
+            'predicted_label': row['predicted_label'],
+            'predicted_score': row['predicted_score'],
+        }
+        table_data.append(table_row)
+
+    chart_data = {
+        'names': list(label_names),
+        'data': [str(x) for x in count.values],
+        "latest_data": table_data
+
+    }
+    return JsonResponse(chart_data)
+
 
 def features(request):
     return render(request, 'features.html')
@@ -248,6 +330,122 @@ def subscription(request):
     # Add logic for subscription details, if needed
     return render(request, 'subscription.html')
 
-def payment(request):
-    return render(request, 'payment.html')
+def settings(request):
+    return render(request, 'settings.html')
+# def payment(request):
+#     return render(request, 'payment.html')
 
+
+
+
+
+
+
+
+
+# payment
+
+
+@csrf_exempt
+def payment(request):
+    if request.method == "POST":
+        print(request.body.decode('utf-8'))
+        print(f"Requested STK PUSH FROM WEB.......")
+        amount = 1 #request.POST.get("amount")
+        phone_number = request.POST.get("phone")
+        print(f"Phone Number   {phone_number}")
+
+        consumer_key = "yApSYjqZ5redC8F1SYxpjLzmoNDIFpqe"
+        consumer_secret = "AMrKuqiGoArjSsPD"
+        pass_key = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+        short_code = 174379
+
+
+        transaction_description = f"payment for {request.user} premium Feature"
+        print(f"Request is being send to stk push..... we have user {request.user} and phone {phone_number}")
+        ret_val = request_stk_push(
+            consumer_key,consumer_secret,
+            pass_key,short_code,float(amount),
+            phone_number, account_reference=str(request.user.id),
+            transaction_description=transaction_description,user=request.user.id,
+        )
+
+        if "errorMessage" in ret_val:
+            messages.error(request, f"Hi {request.user}, your payment did not go through. Error {ret_val['errorMessage']}")
+        else:
+            messages.warning(request, f"Hi {request.user}, your payment is initiated, please input mpesa pin from stk request in phone")
+    
+    return render(request, "subscription.html")
+
+
+# mpesa MpesaPayments
+@csrf_exempt
+@require_POST
+def stk_callback(request):
+    print("Mpesa callback has been called")
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+    except json.JSONDecodeError:
+        return JsonResponse({"message":"error"}, status=400)
+    
+    
+    print(f"DATA is   {data}")
+    data_res = {}
+ 
+    data_res["merchant_id"] = data["Body"]["stkCallback"]["MerchantRequestID"]
+    data_res["checkout_id"] = data["Body"]["stkCallback"]["CheckoutRequestID"]
+    data_res["res_code"] = data["Body"]["stkCallback"]["ResultCode"]
+    data_res["res_text"] = data["Body"]["stkCallback"]["ResultDesc"]
+
+    if int(data_res["res_code"]) > 0:
+        return JsonResponse(data, status=417)
+
+    else:
+        items = data["Body"]["stkCallback"]["CallbackMetadata"]["Item"]
+        for item in items:
+            data_res[item.get("Name")] = item.get("Value")
+
+
+        data_res["trans_date"] = getTime(data_res["TransactionDate"])
+
+        MerchantRequestID = data_res["merchant_id"]
+        CheckoutRequestID = data_res["checkout_id"]
+
+
+        # get order instance
+        try:
+            request_stk_push_res = mpesaRequest.objects.get(
+                merchant_id=MerchantRequestID,
+                checkout_id=CheckoutRequestID,
+            )
+        except mpesaRequest.DoesNotExist:
+            raise Http404
+
+
+        user_id = request_stk_push_res.ref
+
+        try:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            raise Http404
+
+        # update order paid flag
+
+        payment = MpesaPayments()
+
+        print(f"Data is  {data}")
+
+        payment.user = user
+        payment.receipt = data_res.get("MpesaReceiptNumber")
+        payment.merchant_id = data_res.get("merchant_id")
+        payment.checkout_id = data_res.get("checkout_id")
+        payment.res_code = data_res.get("res_code")
+        payment.res_text = data_res.get("res_text")
+        payment.amount = data_res.get("Amount")
+        payment.phone = data_res.get("PhoneNumber")
+        payment.trans_date = request_stk_push_res.trans_date
+
+        # payment.trans_date = datetime.strptime(str(data_res.get("TransactionDate")), "%Y-%m-%d %H:%M:%S")
+
+        payment.save()
+        return JsonResponse({"desc": "success"}, status=200)
