@@ -355,9 +355,9 @@ def payment(request):
         phone_number = request.POST.get("phone")
         print(f"Phone Number   {phone_number}")
 
-        consumer_key = "yApSYjqZ5redC8F1SYxpjLzmoNDIFpqe"
-        consumer_secret = "AMrKuqiGoArjSsPD"
-        pass_key = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+        consumer_key = "kkkkkkkk"
+        consumer_secret = "uhyhuuuu"
+        pass_key = "jjkjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
         short_code = 174379
 
 
