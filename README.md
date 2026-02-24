@@ -3,14 +3,17 @@
 ## Overview
 NetEye is a comprehensive network security monitoring tool designed to empower users with real-time insights into network activities. With advanced features like AI packet classification and real-time monitoring, NetEye provides a robust solution for enhancing cybersecurity.
 
+<img width="463" height="533" alt="image" src="https://github.com/user-attachments/assets/9deb578e-5b9d-42de-a610-67fae70bf38b" />
+
+
 ## Table of Contents
-Features
-Installation
-Usage
-Contributing
-License
-Acknowledgments
-Contact
+- Features
+- Installation
+- Usage
+- Contributing
+- License
+- Acknowledgments
+- Contact
 
 ## Features
 ### 1. Real-time Monitoring
